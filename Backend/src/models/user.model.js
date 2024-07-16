@@ -49,10 +49,6 @@ const userSchema = new Schema(
       type: [String],
       default: [],
     },
-    spaceRole: {
-      type: String,
-      enum: ['user', 'admin'],
-    },
     refreshToken: {
       type: String,
     },

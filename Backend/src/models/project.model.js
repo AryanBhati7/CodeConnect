@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const spaceSchema = new Schema(
+const projectSchema = new Schema(
   {
     name: {
       type: String,
@@ -11,7 +11,19 @@ const spaceSchema = new Schema(
       type: String,
       required: true,
     },
-    admin: {
+    technologies: {
+      type: [String],
+      default: [],
+    },
+    repoLink: {
+      type: String,
+      default: '',
+    },
+    hostedLink: {
+      type: String,
+      default: '',
+    },
+    owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
@@ -20,4 +32,4 @@ const spaceSchema = new Schema(
   { timestamps: true }
 );
 
-export const Space = mongoose.model('Space', spaceSchema);
+export const Project = mongoose.model('Project', projectSchema);
