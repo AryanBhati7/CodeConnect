@@ -26,6 +26,7 @@ const userSchema = new Schema(
         url: String,
         fileId: String,
       },
+      default: {},
     },
     bio: {
       type: String,

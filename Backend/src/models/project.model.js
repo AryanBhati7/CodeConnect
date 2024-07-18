@@ -11,6 +11,15 @@ const projectSchema = new Schema(
       type: String,
       required: true,
     },
+    projectPhoto: {
+      _id: false,
+      type: {
+        url: String,
+        fileId: String,
+      },
+      default: {},
+      required: true,
+    },
     technologies: {
       type: [String],
       default: [],

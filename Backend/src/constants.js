@@ -5,5 +5,9 @@ const avatar_Upload_Options = {
   folder: 'codeconnect/avatars',
   resource_type: 'image',
 };
+const projectPhoto_Upload_Options = {
+  folder: 'codeconnect/project-photos',
+  resource_type: 'image',
+};
 
-export { avatar_Upload_Options };
+export { avatar_Upload_Options, projectPhoto_Upload_Options };
