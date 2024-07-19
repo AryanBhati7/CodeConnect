@@ -9,9 +9,22 @@ const spaceSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+      default: '',
     },
-    admin: {
+    spaceAvatar: {
+      _id: false,
+      type: {
+        url: {
+          type: String,
+          required: true,
+        },
+        fileId: {
+          type: String,
+          required: true,
+        },
+      },
+    },
+    owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,

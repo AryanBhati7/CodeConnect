@@ -32,9 +32,11 @@ app.use(express.static('public'));
 import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
 import projectRoutes from './routes/project.route.js';
+import likeRoutes from './routes/like.route.js';
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/project', projectRoutes);
+app.use('/api/v1/toggle-like', likeRoutes);
 
 export { app };

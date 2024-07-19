@@ -1,5 +1,4 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
-import { User } from '../models/user.model.js';
 import { Project } from '../models/project.model.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
@@ -8,6 +7,34 @@ import {
   deleteFromCloudinary,
 } from '../utils/cloudinary.js';
 import { projectPhoto_Upload_Options } from '../constants.js';
+
+const getAllProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.find().populate(
+    'owner',
+    'name email skills avatar socialLinks'
+  );
+
+  if (!projects) {
+    throw new ApiError(404, 'No projects found');
+  }
+
+  res.status(200).json(new ApiResponse(200, projects, 'All projects'));
+});
+
+const getProjectById = asyncHandler(async (req, res) => {
+  const projectId = req.params.id;
+
+  const project = await Project.findById(projectId).populate(
+    'owner',
+    'name email skills avatar socialLinks'
+  );
+
+  if (!project) {
+    throw new ApiError(404, 'Project not found');
+  }
+
+  res.status(200).json(new ApiResponse(200, project, 'Project'));
+});
 
 const addNewProject = asyncHandler(async (req, res) => {
   const { name, description, technologies, repoLink, hostedLink } = req.body;
@@ -146,4 +173,10 @@ const deleteProject = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, null, 'Project deleted successfully'));
 });
 
-export { addNewProject, updateProjectDetails, deleteProject };
+export {
+  addNewProject,
+  updateProjectDetails,
+  deleteProject,
+  getAllProjects,
+  getProjectById,
+};

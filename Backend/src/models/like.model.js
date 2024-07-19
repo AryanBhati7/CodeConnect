@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const likeSchema = new Schema(
   {
-    user: {
+    likedBy: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
