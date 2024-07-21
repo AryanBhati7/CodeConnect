@@ -5,6 +5,7 @@ import {
   loginUser,
   logoutUser,
   getCurrentUser,
+  doesUserExist,
 } from '../controllers/auth.controller.js';
 import { upload } from '../middlewares/multer.middleware.js';
 
@@ -14,6 +15,7 @@ router.post('/register', registerUser);
 
 router.post('/login', loginUser);
 router.get('/current-user', verifyJWT, getCurrentUser);
+router.post('/check-email', doesUserExist);
 
 router.post('/logout', verifyJWT, logoutUser);
 

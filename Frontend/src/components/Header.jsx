@@ -20,7 +20,7 @@ function Header() {
                 <ul className="hidden pl-0 mb-0 list-none lg:block lg:flex-row">
                   <li>
                     <Link
-                      to="/signin"
+                      to="/auth/check-email"
                       className="inline-block px-8 py-2 mb-0 mr-1 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer hover:-translate-y-px hover:shadow-xs active:opacity-85 text-xs tracking-tight-rem"
                     >
                       Join Now

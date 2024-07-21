@@ -11,14 +11,10 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: '*',
-    // origin: (origin, callback) => {
-    //   if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error('Not allowed by CORS'));
-    //   }
-    // },
+    origin: 
+    process.env.MODE === 'production'
+      ? allowedOrigins[0]
+      : allowedOrigins[1],
     credentials: true,
   })
 );

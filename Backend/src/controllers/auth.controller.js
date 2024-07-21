@@ -19,6 +19,18 @@ const generateAccessAndRefreshToken = async (userId) => {
   }
 };
 
+const doesUserExist = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new ApiError(404, 'User not found');
+  }
+
+  res.status(200).json(new ApiResponse(200, user, 'User found'));
+});
+
 const registerUser = asyncHandler(async (req, res) => {
   const { email, name, password } = req.body;
 
@@ -46,14 +58,14 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { nameOrEmail, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!nameOrEmail || !password) {
+  if (!email || !password) {
     throw new ApiError(400, 'Please either Email or Name and password');
   }
 
   const user = await User.findOne({
-    $or: [{ email: nameOrEmail }, { name: nameOrEmail }],
+    $or: { email },
   });
 
   if (!user) {
@@ -122,4 +134,4 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, user, 'User found'));
 });
 
-export { registerUser, loginUser, logoutUser, getCurrentUser };
+export { registerUser, loginUser, logoutUser, getCurrentUser, doesUserExist };
