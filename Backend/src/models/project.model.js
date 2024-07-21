@@ -11,13 +11,21 @@ const projectSchema = new Schema(
       type: String,
       required: true,
     },
-    projectPhoto: {
-      _id: false,
+    logo: {
       type: {
         url: String,
         fileId: String,
       },
-      default: {},
+    },
+    pictures: {
+      _id: false,
+      type: [
+        {
+          url: String,
+          fileId: String,
+        },
+      ],
+      default: [],
       required: true,
     },
     technologies: {
@@ -31,6 +39,10 @@ const projectSchema = new Schema(
     hostedLink: {
       type: String,
       default: '',
+    },
+    views: {
+      type: Number,
+      default: 0,
     },
     owner: {
       type: Schema.Types.ObjectId,
