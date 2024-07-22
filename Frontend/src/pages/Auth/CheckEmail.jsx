@@ -32,16 +32,13 @@ function CheckEmail() {
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold text-center text-white">
-        Check your email
-      </h1>
+      <h1 className="text-3xl font-bold text-center">Check your email</h1>
       <form className="mt-8 w-96" onSubmit={handleSubmit}>
         <Input
           type="email"
           name="email"
           label="Email"
           placeholder="Enter your email"
-          className="text-white"
         />
         <Button type="submit" className="mt-4">
           Send

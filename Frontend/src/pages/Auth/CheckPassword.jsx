@@ -31,16 +31,13 @@ function CheckPassword() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold text-center text-white">
-        Check your Password
-      </h1>
+      <h1 className="text-3xl font-bold text-center">Check your Password</h1>
       <form className="mt-8 w-96" onSubmit={handleSubmit}>
         <Input
           type="password"
           name="password"
           label="password"
           placeholder="Enter your password"
-          className="text-white"
         />
         <Button type="submit" className="mt-4">
           Send

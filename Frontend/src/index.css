@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #161730;
-}
-
 @layer base {
   :root {
-    --background: #161730;
-    --foreground: 222.2 84% 4.9%;
+    --text: #000;
+    --background: #fff;
+    --foreground: #000;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -36,8 +33,9 @@ body {
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: #161730;
+    --text: #ebe9fc;
+    --foreground: #ebe9fc;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;

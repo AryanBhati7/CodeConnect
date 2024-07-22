@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <LandingPage />,
       },
       {
         path: "/auth/check-email",
