@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -21,6 +21,7 @@ import { useRegisterUser } from "@/hooks/auth.hook";
 import { useDispatch } from "react-redux";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
+import { setUser } from "@/features/authSlice";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -35,7 +36,7 @@ const AvatarField = memo(
       <div className="w-full flex justify-center items-center">
         <Avatar>
           <AvatarImage
-            src={selectedAvatar}
+            src={URL.createObjectURL(selectedAvatar)}
             className="w-36 h-36 rounded-lg object-cover"
           />
           <AvatarFallback>Avatar</AvatarFallback>
@@ -45,6 +46,7 @@ const AvatarField = memo(
 );
 
 function RegisterUser() {
+  const navigate = useNavigate();
   const email = useLocation().state;
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const { toast } = useToast();
@@ -60,12 +62,12 @@ function RegisterUser() {
 
   const dispatch = useDispatch();
   const onSubmit = async (data) => {
-    data.avatar = URL.revokeObjectURL(selectedAvatar);
+    data.avatar = selectedAvatar;
     console.log(data);
     const res = await registerUser(data);
     if (res?.success) {
       toast({
-        variant: "destructive",
+        variant: "success",
         title: res.message,
       });
       dispatch(setUser(res.data));
@@ -97,6 +99,7 @@ function RegisterUser() {
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-2"
+                    encType="multipart/form-data"
                   >
                     <AvatarField selectedAvatar={selectedAvatar} />
 
@@ -104,30 +107,8 @@ function RegisterUser() {
                       name="avatar"
                       type="file"
                       accept="image/*"
-                      onChange={(e) =>
-                        setSelectedAvatar(
-                          URL.createObjectURL(e.target.files[0])
-                        )
-                      }
+                      onChange={(e) => setSelectedAvatar(e.target.files[0])}
                     />
-                    {/* <FormField
-                      control={form.control}
-                      name="avatar"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Avatar</FormLabel>
-                          <FormControl>
-                            <input
-                              placeholder="Select your Avatar"
-                              type="file"
-                              accept="image/*"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    /> */}
                     <FormField
                       control={form.control}
                       name="name"
@@ -176,7 +157,11 @@ function RegisterUser() {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="bg-white w-full mt-8">
+                    <Button
+                      disabled={isPending}
+                      type="submit"
+                      className="bg-white w-full mt-8"
+                    >
                       Submit
                     </Button>
                   </form>

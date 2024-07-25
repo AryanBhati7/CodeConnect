@@ -4,9 +4,6 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
   withCredentials: true,
 });
 

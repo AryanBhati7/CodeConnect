@@ -38,7 +38,7 @@ const doesUserExist = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log('Request Body:', req.body);
+  console.log(req.file);
   const avatarLocalPath = req.file ? req.file.path : null;
 
   const { email, name, password } = req.body;
@@ -54,6 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (existedUser) throw new ApiError(400, 'User already exists');
 
   let uploadedAvatar;
+
   if (avatarLocalPath) {
     uploadedAvatar = await uploadOnCloudinary(
       avatarLocalPath,

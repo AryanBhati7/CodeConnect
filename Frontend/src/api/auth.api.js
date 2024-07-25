@@ -30,6 +30,7 @@ export const loginApi = async (data) => {
 };
 
 export const registerUserApi = async (data) => {
+  console.log(data, "data received at api file");
   const formData = new FormData();
 
   if (data.avatar) {

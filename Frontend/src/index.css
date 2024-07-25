@@ -1,66 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   :root {
-    --text: #000;
-    --background: #fff;
-    --foreground: #000;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --text: #000000; /* black */
+    --background: #ffffff; /* white */
+    --foreground: #000000; /* black */
+    --card: #ffffff; /* white */
+    --card-foreground: #1a1a1a; /* dark gray */
+    --popover: #ffffff; /* white */
+    --popover-foreground: #1a1a1a; /* dark gray */
+    --primary: #1a1a1a; /* dark gray */
+    --primary-foreground: #d9e6ff; /* very light blue */
+    --secondary: #d9e6ff; /* very light blue */
+    --secondary-foreground: #1a1a1a; /* dark gray */
+    --muted: #d9e6ff; /* very light blue */
+    --muted-foreground: #6e6e6e; /* medium gray */
+    --accent: #d9e6ff; /* very light blue */
+    --accent-foreground: #1a1a1a; /* dark gray */
+    --destructive: #ff4d4d; /* light red */
+    --destructive-foreground: #d9e6ff; /* very light blue */
+    --success: #33cc33; /* green */
+    --success-foreground: #d9e6ff; /* very light blue */
+    --border: #e6e6e6; /* very light gray */
+    --input: #e6e6e6; /* very light gray */
+    --ring: #1a1a1a; /* dark gray */
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: #ff9933; /* orange */
+    --chart-2: #33cc99; /* teal */
+    --chart-3: #336699; /* dark blue */
+    --chart-4: #ff9933; /* orange */
+    --chart-5: #ffcc33; /* yellow */
   }
-
   .dark {
-    --background: #161730;
-    --text: #ebe9fc;
-    --foreground: #fff;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: #161730; /* dark blue */
+    --text: #ebe9fc; /* very light purple */
+    --foreground: #ffffff; /* white */
+    --card: #1a1a1a; /* dark gray */
+    --card-foreground: #d9e6ff; /* very light blue */
+    --popover: #1a1a1a; /* dark gray */
+    --popover-foreground: #d9e6ff; /* very light blue */
+    --primary: #d9e6ff; /* very light blue */
+    --primary-foreground: #1a1a1a; /* dark gray */
+    --secondary: #2c2c2c; /* very dark gray */
+    --secondary-foreground: #d9e6ff; /* very light blue */
+    --muted: #2c2c2c; /* very dark gray */
+    --muted-foreground: #a6a6a6; /* light gray */
+    --accent: #2c2c2c; /* very dark gray */
+    --accent-foreground: #d9e6ff; /* very light blue */
+    --destructive: #993333; /* dark red */
+    --destructive-foreground: #d9e6ff; /* very light blue */
+    --success: #33cc33; /* green */
+    --success-foreground: #d9e6ff; /* very light blue */
+    --border: #2c2c2c; /* very dark gray */
+    --input: #2c2c2c; /* very dark gray */
+    --ring: #6e6e6e; /* medium gray */
+    --chart-1: #3333cc; /* blue */
+    --chart-2: #339966; /* green */
+    --chart-3: #ff9933; /* orange */
+    --chart-4: #9933cc; /* purple */
+    --chart-5: #ff3399; /* pink */
   }
 }
-
 @layer base {
   * {
     @apply border-border;
