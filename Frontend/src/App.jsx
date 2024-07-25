@@ -6,18 +6,23 @@ import { useCurrentUser } from "./hooks/auth.hook";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import { setUser } from "./features/authSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
   const { data, isFetching } = useCurrentUser();
 
+  useEffect(() => {
+    if (data?.success) {
+      console.log(data, "data received at app.jsx");
+      dispatch(setUser(data.data));
+    }
+  }, [data, dispatch]);
+
   if (isFetching) {
     return <div>Loading...</div>;
   }
 
-  if (data) {
-    dispatch(setUser(data.data));
-  }
   console.log("app.jsx mounted");
   return (
     <>

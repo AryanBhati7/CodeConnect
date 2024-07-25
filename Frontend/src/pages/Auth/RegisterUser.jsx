@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import authbg from "../../assets/auth-bg.jpg";
 import { Label } from "@/components/ui/label";
-import { useRegisterUser } from "@/hooks/auth.hook";
+import { useLogin, useRegisterUser } from "@/hooks/auth.hook";
 import { useDispatch } from "react-redux";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
@@ -59,6 +59,7 @@ function RegisterUser() {
     },
   });
   const { mutateAsync: registerUser, isPending } = useRegisterUser();
+  const { mutateAsync: loginUser } = useLogin();
 
   const dispatch = useDispatch();
   const onSubmit = async (data) => {
@@ -70,8 +71,14 @@ function RegisterUser() {
         variant: "success",
         title: res.message,
       });
-      dispatch(setUser(res.data));
-      navigate("/");
+      const loginRes = await loginUser({
+        email: data.email,
+        password: data.password,
+      });
+      if (loginRes?.success) {
+        dispatch(setUser(res.data));
+        navigate("/");
+      }
     } else {
       toast({
         variant: "destructive",
@@ -79,7 +86,6 @@ function RegisterUser() {
       });
     }
   };
-  console.log("registerUser");
 
   return (
     <>

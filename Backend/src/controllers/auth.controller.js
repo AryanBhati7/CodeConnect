@@ -38,7 +38,6 @@ const doesUserExist = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.file);
   const avatarLocalPath = req.file ? req.file.path : null;
 
   const { email, name, password } = req.body;

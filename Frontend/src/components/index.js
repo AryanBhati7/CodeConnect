@@ -21,3 +21,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSubContent,
 } from "@radix-ui/react-dropdown-menu";
+
+import Header from "./Header";
+
+export { Header };
