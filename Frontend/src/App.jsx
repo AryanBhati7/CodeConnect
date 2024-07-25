@@ -4,17 +4,24 @@ import { Outlet } from "react-router-dom";
 import { Toast } from "./components/ui/toast";
 import { useCurrentUser } from "./hooks/auth.hook";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import { setUser } from "./features/authSlice";
+import { useDispatch } from "react-redux";
 
 function App() {
-  // const { data, isFetching } = useCurrentUser();
+  const dispatch = useDispatch();
+  const { data, isFetching } = useCurrentUser();
 
-  // if (isFetching) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (data) {
+    dispatch(setUser(data.data));
+  }
+  console.log("app.jsx mounted");
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Header />
         <main className="dark:bg-[#161730] bg-white">
           <Outlet />
         </main>

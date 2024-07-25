@@ -1,5 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCurrentUserApi, checkEmailApi, loginApi } from "@/api/auth.api";
+import {
+  getCurrentUserApi,
+  checkEmailApi,
+  loginApi,
+  registerUserApi,
+} from "@/api/auth.api";
 
 export const useCurrentUser = () => {
   return useQuery({
@@ -18,5 +23,11 @@ export const useCheckEmail = () => {
 export const useLogin = () => {
   return useMutation({
     mutationFn: (data) => loginApi(data),
+  });
+};
+
+export const useRegisterUser = () => {
+  return useMutation({
+    mutationFn: (data) => registerUserApi(data),
   });
 };

@@ -5,24 +5,44 @@ export const getCurrentUserApi = async () => {
     const response = await API.get("/auth/current-user");
     return response.data;
   } catch (error) {
-    throw error;
+    return error.response.data;
   }
 };
 
 export const checkEmailApi = async (email) => {
   try {
     const response = await API.post("/auth/check-email", { email });
+    console.log(response);
     return response.data;
   } catch (error) {
-    throw error;
+    return error.response.data;
   }
 };
 
-export const loginApi = async (email, password) => {
+export const loginApi = async (data) => {
+  // console.log(email, password, "email and password");
   try {
-    const response = await API.post("/auth/login", { email, password });
+    const response = await API.post("/auth/login", data);
     return response.data;
   } catch (error) {
-    throw error;
+    return error.response.data;
+  }
+};
+
+export const registerUserApi = async (data) => {
+  const formData = new FormData();
+
+  if (data.avatar) {
+    formData.append("avatar", data.avatar);
+  }
+  formData.append("email", data.email);
+  formData.append("password", data.password);
+  formData.append("name", data.name);
+  console.log(formData);
+  try {
+    const response = await API.post("/auth/register", formData);
+    return response.data;
+  } catch (error) {
+    return error?.response?.data;
   }
 };

@@ -2,6 +2,12 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { User } from '../models/user.model.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
+import { avatar_Upload_Options } from '../constants.js';
+import { createAvatar } from '@dicebear/core';
+import { initials } from '@dicebear/collection';
+import fs from 'fs';
+import path from 'path';
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -21,7 +27,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 
 const doesUserExist = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  console.log(email);
+
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -32,6 +38,9 @@ const doesUserExist = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
+  console.log('Request Body:', req.body);
+  const avatarLocalPath = req.file ? req.file.path : null;
+
   const { email, name, password } = req.body;
 
   if (!email || !name || !password) {
@@ -44,10 +53,46 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (existedUser) throw new ApiError(400, 'User already exists');
 
-  const user = await User.create({ email, name, password });
+  let uploadedAvatar;
+  if (avatarLocalPath) {
+    uploadedAvatar = await uploadOnCloudinary(
+      avatarLocalPath,
+      avatar_Upload_Options
+    );
+  } else {
+    const avatar = createAvatar(initials, {
+      seed: name,
+    });
+    const svg = avatar.toString();
+    const avatarFilePath = path.join(
+      'public/temp',
+      `${name.split(' ')[0]}-avatar.svg`
+    );
+
+    fs.writeFileSync(avatarFilePath, svg, 'utf8');
+
+    uploadedAvatar = await uploadOnCloudinary(
+      avatarFilePath,
+      avatar_Upload_Options
+    );
+  }
+
+  if (!uploadedAvatar) {
+    throw new ApiError(500, 'Avatar not uploaded');
+  }
+
+  const user = await User.create({
+    name,
+    avatar: {
+      url: uploadedAvatar.secure_url,
+      fileId: uploadedAvatar.public_id,
+    },
+    email,
+    password,
+  });
 
   if (!user) {
-    throw new ApiError(400, 'User not created');
+    throw new ApiError(500, 'User not created');
   }
 
   const createdUser = await User.findById(user._id).select('-password');
