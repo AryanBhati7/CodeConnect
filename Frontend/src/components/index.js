@@ -23,5 +23,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 
 import Header from "./Header";
+import Sidebar from "./Sidebar";
+import Logo from "./Logo";
 
-export { Header };
+export { Header, Sidebar, Logo };
