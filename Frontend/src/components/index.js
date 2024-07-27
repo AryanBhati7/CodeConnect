@@ -25,5 +25,6 @@ import {
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Logo from "./Logo";
+import ProjectCard from "./ProjectCard";
 
-export { Header, Sidebar, Logo };
+export { Header, Sidebar, Logo, ProjectCard };

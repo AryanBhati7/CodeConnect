@@ -1,11 +1,26 @@
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Folder, Home, Users } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Folder,
+  Home,
+  LogOutIcon,
+  Users,
+} from "lucide-react";
 import { Logo } from ".";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { useLogout } from "@/hooks/auth.hook.js";
+import { logout as logoutSlice } from "@/features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { mutateAsync: logout, isPending } = useLogout();
+  const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.auth.user);
 
   const sidebarItems = [
     {
@@ -33,9 +48,17 @@ function Sidebar() {
     setIsExpanded(true);
   };
 
+  const handleLogout = async () => {
+    const res = await logout();
+    console.log(res, "Logout response");
+    if (res?.success) {
+      dispatch(logoutSlice());
+    }
+  };
+
   return (
     <div
-      className={`fixed left-0 top-0 h-screen bg-white text-black px-4 ${
+      className={`fixed left-0 top-0 h-screen py-3 bg-white text-black px-4 ${
         isExpanded ? "w-64" : "w-[4.5rem]"
       } transition-all duration-300 flex flex-col justify-between`}
       onMouseLeave={closeSidebar}
@@ -61,14 +84,23 @@ function Sidebar() {
           ))}
         </ul>
       </div>
-
-      <Link to="/profile" className="flex items-center hover:bg-gray-400">
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        {isExpanded && <span className="ml-2">Profile</span>}
-      </Link>
+      <div className="flex flex-col items-center gap-3">
+        <Link to="/profile" className="flex items-center hover:bg-gray-400">
+          <Avatar>
+            <AvatarImage src={userData?.avatar?.url} />
+            <AvatarFallback>{userData?.name}</AvatarFallback>
+          </Avatar>
+          {isExpanded && <span className="ml-2">{userData?.name}</span>}
+        </Link>
+        <Button
+          variant="destructive"
+          disabled={isPending}
+          onClick={handleLogout}
+        >
+          <LogOutIcon />
+          {isExpanded && <span>Logout</span>}
+        </Button>
+      </div>
     </div>
   );
 }

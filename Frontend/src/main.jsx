@@ -14,6 +14,10 @@ import {
   CheckEmail,
   CheckPassword,
   RegisterUser,
+  Dashboard,
+  Projects,
+  Spaces,
+  Profile,
 } from "./pages/index.js";
 
 const queryClient = new QueryClient();
@@ -26,6 +30,24 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        children: [
+          {
+            path: "/",
+            element: <Dashboard />,
+          },
+          {
+            path: "/spaces",
+            element: <Spaces />,
+          },
+          {
+            path: "/projects",
+            element: <Projects />,
+          },
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
+        ],
       },
       {
         path: "/auth/check-email",

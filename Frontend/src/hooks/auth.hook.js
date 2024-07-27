@@ -4,6 +4,7 @@ import {
   checkEmailApi,
   loginApi,
   registerUserApi,
+  logoutApi,
 } from "@/api/auth.api";
 
 export const useCurrentUser = () => {
@@ -30,5 +31,11 @@ export const useLogin = () => {
 export const useRegisterUser = () => {
   return useMutation({
     mutationFn: (data) => registerUserApi(data),
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: () => logoutApi(),
   });
 };

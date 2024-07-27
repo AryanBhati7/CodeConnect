@@ -47,3 +47,12 @@ export const registerUserApi = async (data) => {
     return error?.response?.data;
   }
 };
+
+export const logoutApi = async () => {
+  try {
+    const response = await API.post("/auth/logout");
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};

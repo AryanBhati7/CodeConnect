@@ -5,9 +5,9 @@ import { Sidebar } from "@/components";
 import { Outlet } from "react-router-dom";
 
 function Home() {
-  // const authStatus = useSelector((state) => state.auth.authStatus);
+  const authStatus = useSelector((state) => state.auth.authStatus);
 
-  const authStatus = true;
+  // const authStatus = true;
   if (!authStatus) {
     return <LandingPage />;
   }
