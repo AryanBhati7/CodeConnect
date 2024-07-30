@@ -58,7 +58,7 @@ function Sidebar() {
 
   return (
     <div
-      className={`fixed left-0 top-0 h-screen py-3 bg-white text-black px-4 ${
+      className={`fixed left-0 top-0 h-screen py-3 bg-transparent text-white px-4 ${
         isExpanded ? "w-64" : "w-[4.5rem]"
       } transition-all duration-300 flex flex-col justify-between`}
       onMouseLeave={closeSidebar}

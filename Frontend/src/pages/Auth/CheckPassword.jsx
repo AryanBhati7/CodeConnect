@@ -1,5 +1,5 @@
 import { useLogin } from "@/hooks/auth.hook";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { toast, useToast } from "@/components/ui/use-toast";
 import { useDispatch } from "react-redux";
 import authbg from "../../assets/auth-bg.jpg";
 import { setUser } from "@/features/authSlice";
-import { LoaderIcon } from "lucide-react";
+import { Eye, EyeOff, LoaderIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -47,6 +47,15 @@ function CheckPassword() {
     console.log(error);
   }
 
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   return (
     <>
       <Header />
@@ -62,20 +71,22 @@ function CheckPassword() {
           <div className="lg:p-4">
             <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
               <div className="flex flex-col space-y-2 text-center">
-                <h1 className="text-2xl font-semibold tracking-tight">
-                  Welcome to the Community
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  Enter your password to Join the Community
-                </p>
-                <div className="flex gap-3">
+                <div>
+                  <h1 className="text-2xl font-semibold tracking-tight">
+                    Welcome to the Community
+                  </h1>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Enter your password to Join the Community
+                  </p>
+                </div>
+                <div className="flex gap-3 mx-auto">
                   <Avatar className="w-20 h-20">
                     <AvatarImage src={avatar.url} className="object-cover" />
                     <AvatarFallback>{name}</AvatarFallback>
                   </Avatar>
-                  <div className="flex flex-col gap-3">
-                    <h2 className="text-lg font-semibold">{name}</h2>
-                    <p className="text-sm text-muted-foreground">{email}</p>
+                  <div className="flex flex-col gap-2 my-auto">
+                    <h2 className="text-xl font-semibold">{name}</h2>
+                    <p className="text-lg text-muted-foreground">{email}</p>
                   </div>
                 </div>
               </div>
@@ -86,16 +97,29 @@ function CheckPassword() {
                       <Label className="sr-only" htmlFor="email">
                         Email
                       </Label>
-                      <Input
-                        id="password"
-                        placeholder="Enter your password here"
-                        type="password"
-                        disabled={isPending}
-                      />
+                      <div>
+                        <Label htmlFor="password">Password</Label>
+                        <div className="relative">
+                          <Input
+                            id="password"
+                            type={passwordVisible ? "text" : "password"}
+                            value={password}
+                            onChange={handlePasswordChange}
+                            required
+                            className="w-full pr-10"
+                          />
+                          <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                          >
+                            {passwordVisible ? <EyeOff /> : <Eye />}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                     <Button className="bg-white" disabled={isPending}>
-                      {isPending && <div>Loading...</div>}
-                      Sign in
+                      {isPending ? <LoaderIcon /> : "Sign In"}
                     </Button>
                   </div>
                 </form>

@@ -69,8 +69,7 @@ function CheckEmail() {
                     disabled={isPending}
                   />
                   <Button className="bg-white" disabled={isPending}>
-                    {isPending && <div>Loading...</div>}
-                    Sign In with Email
+                    {isPending ? <LoaderIcon /> : "Sign In with Email"}
                   </Button>
                 </div>
               </form>
